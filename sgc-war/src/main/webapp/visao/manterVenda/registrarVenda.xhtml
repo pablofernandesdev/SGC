@@ -1,0 +1,574 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	template="/common/layout/template.xhtml">
+
+	<ui:define name="body">
+
+		<h:form id="idFormRegistrarVenda">
+
+			<ui:include src="/common/layout/menuPrincipal.xhtml" />
+			<br />
+			<br />
+			<a4j:keepAlive beanName="manterVendaVisao" />
+
+			<rich:panel style="width:1100px; margin:0 auto; min-height:40px">
+				<f:facet name="header">
+					<rich:spacer height="4" />
+				</f:facet>
+				<h2 align="center">
+					<h:outputText value="#{msgs['label.venda']}" />
+				</h2>
+			</rich:panel>
+
+			<rich:panel id="painelRegistrarVenda"
+				header="#{msgs['label.registrar.nova.venda']}"
+				style="width: 1100px; margin:0 auto; min-height:1000px">
+
+				<br />
+				<rich:spacer width="45" />
+				<h:outputText value="#{msgs['label.data']} :"
+					style="font-family:verdana; size: 30; font-weight:bold;" />
+				<rich:spacer width="15" />
+				<rich:calendar value="#{manterVendaVisao.venda.dataVenda}"
+					id="idDataNascimento" dataPattern="dd/MM/yyyy"
+					label="#{msgs['label.data']}" enableManualInput="false"
+					disabled="true" />
+
+				<br />
+				<br />
+
+				<!-- Listar Empresa -->
+
+				<rich:panel id="painelEmpresa"
+					style="width: 980px; margin:0 auto; height:70px">
+
+					<rich:dataTable id="idDataTableResultadoEmpresa"
+						value="#{manterVendaVisao.listaEmpresas}" var="empresa" rows="10"
+						style="width: 920px; margin:0 auto; height:30px">
+
+						<rich:column style="text-align:left;" width="120">
+							<f:facet name="header">
+								<h:outputText value="#{msgs['label.razaoSocial']}"
+									style="font-family:verdana; size: 30; font-weight:bold;" />
+							</f:facet>
+							<h:outputText value="#{empresa.razaoSocial}" />
+						</rich:column>
+
+						<rich:column style="text-align:left;" width="120">
+							<f:facet name="header">
+								<h:outputText value="#{msgs['label.cnpj']}"
+									style="font-family:verdana; size: 30; font-weight:bold;" />
+							</f:facet>
+							<h:outputText value="#{empresa.cnpjComMascara}" />
+						</rich:column>
+
+						<rich:column style="text-align:left;" width="120">
+							<f:facet name="header">
+								<h:outputText value="#{msgs['label.cidade']}"
+									style="font-family:verdana; size: 30; font-weight:bold;" />
+							</f:facet>
+							<h:outputText value="#{empresa.cidade}" />
+						</rich:column>
+
+						<rich:column style="text-align:left;" width="120">
+							<f:facet name="header">
+								<h:outputText value="#{msgs['label.uf']}"
+									style="font-family:verdana; size: 30; font-weight:bold;" />
+							</f:facet>
+							<h:outputText value="#{empresa.uf}" />
+						</rich:column>
+
+					</rich:dataTable>
+
+					<br />
+
+				</rich:panel>
+
+				<br />
+
+				<!-- Listar Usuario -->
+
+				<rich:panel id="painelUsuario" header="#{msgs['label.usuario']}"
+					style="width: 980px; margin:0 auto; height:80px">
+
+					<rich:dataTable id="idDataTableResultadoUsuario"
+						value="#{manterVendaVisao.listaUsuarios}" var="usuario" rows="10"
+						header="#{msgs['label.cadastrar.usuario']}"
+						style="width: 920px; margin:0 auto; height:40px">
+
+						<rich:column style="text-align:left;" width="120">
+							<f:facet name="header">
+								<h:outputText value="#{msgs['label.id']}"
+									style="font-family:verdana; size: 30; font-weight:bold;" />
+							</f:facet>
+							<h:outputText value="#{usuario.idUsuario}" />
+						</rich:column>
+
+						<rich:column style="text-align:left;" width="120">
+							<f:facet name="header">
+								<h:outputText value="#{msgs['label.nome']}"
+									style="font-family:verdana; size: 30; font-weight:bold;" />
+							</f:facet>
+							<h:outputText value="#{usuario.nome}" />
+						</rich:column>
+
+						<rich:column style="text-align:left;" width="120">
+							<f:facet name="header">
+								<h:outputText value="#{msgs['label.nome.usuario']}"
+									style="font-family:verdana; size: 30; font-weight:bold;" />
+							</f:facet>
+							<h:outputText value="#{usuario.usuario}" />
+						</rich:column>
+
+						<rich:column style="text-align:left;" width="120">
+							<f:facet name="header">
+								<h:outputText value="#{msgs['label.status']}"
+									style="font-family:verdana; size: 30; font-weight:bold;" />
+							</f:facet>
+							<h:outputText value="#{usuario.statusComMascara}" />
+						</rich:column>
+
+					</rich:dataTable>
+
+					<br />
+
+				</rich:panel>
+
+				<br />
+
+				<!-- Listar Ciente -->
+
+				<rich:panel id="painelCliente" header="#{msgs['label.cliente']}"
+					style="width: 980px; margin:0 auto; height:110px">
+
+					<rich:dataTable id="idDataTableResultadoCliente"
+						value="#{manterVendaVisao.listaClientes}" var="cliente" rows="10"
+						header="#{msgs['label.cadastrar.produto']}"
+						style="width: 920px; margin:0 auto; height:40px" autosized="true">
+
+						<rich:column style="text-align:left;">
+							<f:facet name="header">
+								<h:outputText value="#{msgs['label.id']}"
+									style="font-family:verdana; size: 30; font-weight:bold;" />
+							</f:facet>
+							<h:outputText value="#{cliente.idCliente}" />
+						</rich:column>
+
+						<rich:column style="text-align:left;">
+							<f:facet name="header">
+								<h:outputText value="#{msgs['label.nome']}"
+									style="font-family:verdana; size: 30; font-weight:bold;" />
+							</f:facet>
+							<h:outputText value="#{cliente.nome}" />
+						</rich:column>
+
+						<rich:column style="text-align:left;">
+							<f:facet name="header">
+								<h:outputText value="#{msgs['label.cpf']}"
+									style="font-family:verdana; size: 30; font-weight:bold;" />
+							</f:facet>
+							<h:outputText value="#{cliente.cpfComMascara}" />
+						</rich:column>
+
+						<rich:column style="text-align:center;">
+							<f:facet name="header">
+								<h:outputText value="#{msgs['label.acao']}"
+									style="font-family:verdana; size: 30; font-weight:bold;" />
+							</f:facet>
+							<a4j:commandButton
+								action="#{manterVendaVisao.removerCliente(cliente)}"
+								image="/common/images/excluir.png"
+								title="#{msgs['label.excluir']}" reRender="painelRegistrarVenda" />
+
+						</rich:column>
+						<br />
+						<br />
+
+					</rich:dataTable>
+					<br />
+					<a4j:commandButton
+						action="#{manterVendaVisao.abrirModalPesquisarCliente}"
+						image="/common/images/user-plus.png" title="#{msgs['MSG_H007']}"
+						value="add cliente" reRender="idModalPesquisarCliente"
+						disabled="#{!manterVendaVisao.listaClientes.isEmpty()}" />
+				</rich:panel>
+
+				<br />
+
+				<!-- Listar Produto -->
+
+				<rich:panel id="idPainelProduto" header="#{msgs['label.produto']}"
+					style="width: 980px; margin:0 auto; min-height:500px"
+					reRender="idPainelMensagem">
+
+					<rich:dataTable id="idDataTableResultadoProduto"
+						value="#{manterVendaVisao.listaSaidaProduto}" var="saidaProduto"
+						rows="15" header="#{msgs['label.cadastrar.produto']}"
+						style="width: 920px; margin:0 auto; height:60px">
+
+						<rich:column style="text-align:left;" width="120">
+							<f:facet name="header">
+								<h:outputText value="#{msgs['label.id']}"
+									style="font-family:verdana; size: 30; font-weight:bold;" />
+							</f:facet>
+							<h:outputText value="#{saidaProduto.produto.idProduto}" />
+						</rich:column>
+
+						<rich:column style="text-align:left;" width="120">
+							<f:facet name="header">
+								<h:outputText value="#{msgs['label.nome']}"
+									style="font-family:verdana; size: 30; font-weight:bold;" />
+							</f:facet>
+							<h:outputText value="#{saidaProduto.produto.nome}" />
+						</rich:column>
+
+						<rich:column style="text-align:left;" width="120">
+							<f:facet name="header">
+								<h:outputText value="#{msgs['label.descricao']}"
+									style="font-family:verdana; size: 30; font-weight:bold;" />
+							</f:facet>
+							<h:outputText value="#{saidaProduto.produto.descricao}" />
+						</rich:column>
+
+						<rich:column style="text-align:left;" width="50">
+							<f:facet name="header">
+								<h:outputText value="#{msgs['label.quantidade']}"
+									style="font-family:verdana; size: 30; font-weight:bold;" />
+							</f:facet>
+							<h:inputText value="#{saidaProduto.quantidadeSaida}">
+								<a4j:support event="onblur"
+									action="#{manterVendaVisao.multiplicarPrecoQtd(saidaProduto)}"
+									reRender="idPainelProduto, idPainelMensagem" />
+							</h:inputText>
+						</rich:column>
+
+						<rich:column style="text-align:left;" width="120">
+							<f:facet name="header">
+								<h:outputText value="#{msgs['label.precoVenda']}"
+									style="font-family:verdana; size: 30; font-weight:bold;" />
+							</f:facet>
+							<h:outputText
+								value="#{saidaProduto.produto.precoVendaComMascara}" />
+						</rich:column>
+
+						<rich:column id="totalSomado" style="text-align:left;" width="50">
+							<f:facet name="header">
+								<h:outputText value="#{msgs['label.totalSomado']}" />
+							</f:facet>
+							<h:outputText value="#{saidaProduto.totalSomadoComMascara}" />
+						</rich:column>
+
+						<rich:column style="text-align:center;" width="50">
+							<f:facet name="header">
+								<h:outputText value="#{msgs['label.acao']}"
+									style="font-family:verdana; font-weight:bold;" />
+							</f:facet>
+							<a4j:commandButton
+								action="#{manterVendaVisao.removerProduto(saidaProduto)}"
+								image="/common/images/excluir.png"
+								title="#{msgs['label.excluir']}"
+								value="#{msgs['label.excluir']}" reRender="idPainelProduto" />
+
+						</rich:column>
+
+						<f:facet name="footer">
+							<rich:datascroller id="scrollTable"
+								for="idDataTableResultadoProduto" maxPages="5" />
+						</f:facet>
+
+					</rich:dataTable>
+					<br />
+					<h:panelGrid id="idPaneltotalGeral" columns="2">
+						<h:outputLabel value="#{msgs['label.total']} :"
+							style="font-family:verdana; font-size: 15px; font-weight:bold;" />
+						<h:outputText id="idTxtTotalGeral"
+							value="#{manterVendaVisao.totalGeralComMascara}"
+							style="font-family:verdana; font-size: 15px; font-weight:bold;" />
+
+					</h:panelGrid>
+					<div align="center">
+
+						<a4j:commandButton
+							action="#{manterVendaVisao.abrirModalPesquisarProduto()}"
+							image="/common/images/cart.png"
+							title="#{msgs['label.adicionar.produto']}"
+							reRender="idModalPesquisarProduto, idPainelMensagem" />
+
+					</div>
+				</rich:panel>
+
+				<br />
+				<br />
+
+				<div align="center">
+
+					<a4j:commandButton action="#{manterVendaVisao.saveVenda()}"
+						value="#{msgs['label.registrar.venda']}"
+						style="font-family:verdana; font-weight:bold;"
+						reRender="idFormRegistrarVenda" />
+
+					<rich:spacer width="15" />
+
+					<a4j:commandButton action="#{manterVendaVisao.voltarTelaInicial}"
+						value="#{msgs['label.home']}" immediate="true"
+						style="font-family:verdana; font-weight:bold;" />
+				</div>
+			</rich:panel>
+		</h:form>
+
+		<!-- Pesquisar Produto -->
+
+		<rich:modalPanel id="idModalPesquisarProduto"
+			reRender="idPainelMensagem" width="920" min-height="800"
+			autosized="true"
+			showWhenRendered="#{manterVendaVisao.abrirModalPesquisarProdutos}">
+
+			<a4j:outputPanel id="idPainelMensagem1" styleClass="column100Percent"
+				ajaxRendered="false">
+				<rich:panel id="painelMensagem1"
+					rendered="#{facesContext.maximumSeverity != null}"
+					style="margin-top:10px !important; display:block">
+					<div style="border: 1px;">
+						<h:outputText
+							rendered="#{facesContext.maximumSeverity == 'ERROR 2'}">
+							<rich:messages layout="list" styleClass="msg-alerta">
+								<f:facet name="errorMarker">
+									<h:graphicImage url="/common/images/warning.png" />
+								</f:facet>
+							</rich:messages>
+						</h:outputText>
+
+					</div>
+				</rich:panel>
+
+			</a4j:outputPanel>
+			
+			<br/>
+
+			<a4j:form>
+
+				<h:outputText value="#{msgs['label.nome.produto']} :"
+					style="font-family:verdana; font-weight:bold;" />
+				<rich:spacer width="15" />
+				<h:inputText value="#{manterVendaVisao.produtoConsultaModal.nome}" />
+
+				<rich:spacer width="15" />
+
+				<a4j:commandButton action="#{manterVendaVisao.pesquisarProduto}"
+					style="font-family:verdana; font-weight:bold;"
+					value="#{msgs['label.pesquisar']}"
+					image="/common/images/search.png"
+					title="#{msgs['label.pesquisar']}" reRender="idDataTableProdutos, idPainelMensagem1" />
+
+				<br />
+				<br />
+
+				<rich:dataTable id="idDataTableProdutos"
+					value="#{manterVendaVisao.listaProdutosModal}" var="produto"
+					rows="10" width="100%">
+
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.id']}"
+								style="font-family:verdana; font-weight:bold;" />
+						</f:facet>
+						<h:outputText value="#{produto.idProduto}" />
+					</rich:column>
+
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.nome']}"
+								style="font-family:verdana; font-weight:bold;" />
+						</f:facet>
+						<h:outputText value="#{produto.nome}" />
+					</rich:column>
+
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.descricao']}"
+								style="font-family:verdana; font-weight:bold;" />
+						</f:facet>
+						<h:outputText value="#{produto.descricao}" />
+					</rich:column>
+
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.quantidade']}"
+								style="font-family:verdana; font-weight:bold;" />
+						</f:facet>
+						<h:outputText value="#{produto.quantidade}" />
+					</rich:column>
+
+					<rich:column style="text-align:center;" width="50">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.acao']}" />
+						</f:facet>
+						<a4j:commandButton
+							action="#{manterVendaVisao.adicionarProduto(produto)}"
+							image="/common/images/plus.png"
+							title="#{msgs['label.adicionar']}"
+							reRender="idDataTableResultadoProduto, idModalPesquisarProduto" />
+
+					</rich:column>
+
+					<f:facet name="footer">
+						<rich:datascroller id="scrollTable" for="idDataTableProdutos"
+							maxPages="10" />
+					</f:facet>
+
+				</rich:dataTable>
+
+				<br />
+				<br />
+
+				<div align="center">
+
+					<a4j:commandButton
+						action="#{manterVendaVisao.fecharModalPesquisarProduto}"
+						style="font-family:verdana; font-weight:bold;"
+						value="#{msgs['label.fechar']}" reRender="idModalPesquisarProduto" />
+
+				</div>
+
+			</a4j:form>
+		</rich:modalPanel>
+
+		<!-- Pesquisar Cliente -->
+
+		<rich:modalPanel id="idModalPesquisarCliente" width="920"
+			min-height="800" autosized="true"
+			showWhenRendered="#{manterVendaVisao.abrirModalPesquisarClientes}">
+
+			<a4j:outputPanel id="idPainelMensagem2" styleClass="column100Percent"
+				ajaxRendered="false">
+				<rich:panel id="painelMensagem2"
+					rendered="#{facesContext.maximumSeverity != null}"
+					style="margin-top:10px !important; display:block">
+					<div style="border: 1px;">
+						<h:outputText
+							rendered="#{facesContext.maximumSeverity == 'ERROR 2'}">
+							<rich:messages layout="list" styleClass="msg-alerta">
+								<f:facet name="errorMarker">
+									<h:graphicImage url="/common/images/warning.png" />
+								</f:facet>
+							</rich:messages>
+						</h:outputText>
+
+					</div>
+				</rich:panel>
+
+			</a4j:outputPanel>
+			
+			<br/>
+
+			<a4j:form>
+
+				<h:outputText value="#{msgs['label.nome']} :"
+					style="font-family:verdana; font-weight:bold;" />
+				<rich:spacer width="15" />
+				<h:inputText value="#{manterVendaVisao.clienteConsultaModal.nome}" />
+
+				<rich:spacer width="15" />
+
+				<h:outputText value="#{msgs['label.cpf']} :"
+					style="font-family:verdana; font-weight:bold;" />
+				<rich:spacer width="15" />
+				<h:inputText value="#{manterVendaVisao.clienteConsultaModal.cpf}" />
+
+				<rich:spacer width="15" />
+
+				<a4j:commandButton action="#{manterVendaVisao.pesquisarCliente}"
+					style="font-family:verdana; font-weight:bold;"
+					value="#{msgs['label.pesquisar']}"
+					image="/common/images/search.png"
+					title="#{msgs['label.pesquisar']}" 
+					reRender="idDataTableClientes, idModalPesquisarCliente, idPainelMensagem2" />
+
+				<br />
+				<br />
+
+				<rich:dataTable id="idDataTableClientes"
+					value="#{manterVendaVisao.listaClientesModal}" var="cliente"
+					rows="10" width="100%">
+
+					<rich:column style="text-align:left;" width="120">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.id']}"
+								style="font-family:verdana; font-weight:bold;" />
+						</f:facet>
+						<h:outputText value="#{cliente.idCliente}" />
+					</rich:column>
+
+					<rich:column style="text-align:left;" width="120">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.id']}"
+								style="font-family:verdana; font-weight:bold;" />
+						</f:facet>
+						<h:outputText value="#{cliente.nome}" />
+					</rich:column>
+
+					<rich:column style="text-align:left;" width="120">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.cpf']}"
+								style="font-family:verdana; font-weight:bold;" />
+						</f:facet>
+						<h:outputText value="#{cliente.cpfComMascara}" />
+					</rich:column>
+
+					<rich:column style="text-align:center;" width="50">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.acao']}"
+								style="font-family:verdana; font-weight:bold;" />
+						</f:facet>
+						<a4j:commandButton
+							action="#{manterVendaVisao.adicionarCliente(cliente)}"
+							image="/common/images/plus.png"
+							title="#{msgs['label.adicionar']}"
+							reRender="idDataTableResultadoCliente, painelCliente, 
+							idModalPesquisarCliente, idPainelMensagem" />
+
+					</rich:column>
+
+					<f:facet name="footer">
+						<rich:datascroller id="scrollTable" for="idDataTableClientes"
+							maxPages="10" />
+					</f:facet>
+
+				</rich:dataTable>
+
+				<br />
+				<br />
+
+				<div align="center">
+
+					<a4j:commandButton
+						action="#{manterClienteVisao.irTelaCadastrarCliente}"
+						style="font-family:verdana; size: 30; font-weight:bold;"
+						value="#{msgs['label.cadastrar.cliente']}" immediate="true" 
+						title="#{msgs['MSG_H002']}" reRender="idFormRegistrarVenda"/>
+						
+					<rich:spacer width="10" />
+
+					<a4j:commandButton
+						action="#{manterVendaVisao.fecharModalPesquisarCliente}"
+						style="font-family:verdana; font-weight:bold;"
+						value="#{msgs['label.fechar']}" reRender="idModalPesquisarCliente" />
+
+				</div>
+
+			</a4j:form>
+		</rich:modalPanel>
+
+		<br />
+		<br />
+
+	</ui:define>
+
+</ui:composition>

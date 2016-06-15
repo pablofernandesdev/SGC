@@ -1,0 +1,78 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	template="/common/layout/template.xhtml">
+
+	<ui:define name="body">
+		<a4j:form id="idFormEditarCategoria">
+			<ui:include src="/common/layout/menuPrincipal.xhtml" />
+			<br />
+			<br />
+			<a4j:keepAlive beanName="manterCategoriaVisao" />
+
+			<rich:panel style="width:1100px; margin:0 auto; min-height:40px"
+				header="t">
+				<f:facet name="header">
+					<rich:spacer height="4" />
+				</f:facet>
+				<h2 align="center"
+					style="font-family:verdana; font-weight:bold;">
+					<h:outputText value="#{msgs['label.categoria']}" />
+				</h2>
+			</rich:panel>
+
+			<rich:panel id="painelCategoria"
+				header="#{msgs['label.editar.categoria']}"
+				style="width:1100px; margin:0 auto; min-height:500px">
+
+				<a4j:keepAlive beanName="manterCategoriaVisao" />
+
+				<br />
+				<br />
+				
+				<font style="font-family:verdana; size: 30; font-weight:bold;">
+
+				<h:outputText value="#{msgs['label.id']} :" />
+				<rich:spacer width="15" />
+				<h:inputText value="#{manterCategoriaVisao.categoria.idCategoria}"
+					disabled="true" />
+				<br />
+				<br />
+
+				<h:outputText value="#{msgs['label.nome.categoria']} :" />
+				<rich:spacer width="15" />
+				<h:inputText value="#{manterCategoriaVisao.categoria.nome}" />
+
+				<br />
+				<br />
+				
+				</font>
+				
+				<div align="center">
+				
+				<a4j:commandButton
+					action="#{manterCategoriaVisao.voltarPesquisaCategoria()}"
+					style="font-family:verdana; size: 30; font-weight:bold;"
+					value="#{msgs['label.voltar']}" />
+					
+					<rich:spacer width="15" />
+
+				<a4j:commandButton
+					action="#{manterCategoriaVisao.updateCategoria()}"
+					style="font-family:verdana; size: 30; font-weight:bold;"
+					value="#{msgs['label.atualizar']}" />
+					
+				</div>	
+			</rich:panel>
+			<br />
+			<br />
+		</a4j:form>
+	</ui:define>
+
+</ui:composition>

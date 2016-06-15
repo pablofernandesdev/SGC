@@ -1,0 +1,134 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+			    xmlns:ui="http://java.sun.com/jsf/facelets"
+			    xmlns:f="http://java.sun.com/jsf/core"
+			    xmlns:h="http://java.sun.com/jsf/html"
+			    xmlns:a4j="http://richfaces.org/a4j"
+			    xmlns:rich="http://richfaces.org/rich"
+			    xmlns:t="http://myfaces.apache.org/tomahawk"
+			    template="/common/layout/template.xhtml">
+
+	<ui:define name="body">
+		<a4j:form id="idFormCadastrarProduto">
+
+			<ui:include src="/common/layout/menuPrincipal.xhtml" />
+			
+			<br />
+			<br />
+
+			<a4j:keepAlive beanName="manterProdutoVisao" />
+
+			<rich:panel style="width:1100px; margin:0 auto; min-height:40px;"
+				headerClass="outpanelHeader">
+				<f:facet name="header">
+					<rich:spacer height="4" />
+				</f:facet>
+				<h2 align="center">
+					<h:outputText value="#{msgs['label.produto']}" 
+					style="font-family:verdana; size: 30; font-weight:bold;"/>
+				</h2>
+			</rich:panel>
+			
+			<rich:panel id="painelCadastrarProduto"
+				header="#{msgs['label.cadastrar.produto']}"
+				style="width: 1100px; margin:0 auto; height:500px">
+				
+				<font style="font-family:verdana; size: 30; font-weight:bold;">
+				
+					<h:outputText value="#{msgs['label.nome.produto']} :" />
+					<rich:spacer width="15" />
+					<h:inputText value="#{manterProdutoVisao.produto.nome}" />
+					
+					<br />
+					<br />
+	
+					<h:outputText value="#{msgs['label.descricao']} :" />
+						<rich:spacer width="15" />
+					<h:inputText value="#{manterProdutoVisao.produto.descricao}" />
+	
+					<br />
+					<br />
+	
+					<h:outputText value="#{msgs['label.marca']} :" />
+						<rich:spacer width="15" />
+					<h:inputText value="#{manterProdutoVisao.produto.marca}" />
+					
+					<br />
+					<br />
+	
+					<h:outputText value="#{msgs['label.precoCusto']} :" />
+					
+						<rich:spacer width="15" />
+					
+					<h:inputText id="PrecoCusto"
+						value="#{manterProdutoVisao.produto.precoCustoFormatado}"
+						onblur="return formataMascara(this,ValorOrcamento)"
+						onkeypress="return formataMascara(this,ValorOrcamento)">
+						<a4j:support event="onblur"
+							action="#{manterProdutoVisao.calcularPrecoVenda}"
+							reRender="painelCadastrarProduto" />
+					</h:inputText> 
+					
+					<br />
+					<br />
+	
+					<h:outputText value="#{msgs['label.margemLucro']} :" />
+					<rich:spacer width="15" />
+					
+					<h:inputText value="#{manterProdutoVisao.produto.margemLucro}">
+						<a4j:support event="onblur"
+							action="#{manterProdutoVisao.calcularPrecoVenda}"
+							reRender="painelCadastrarProduto" />
+					</h:inputText>
+					<h:outputText value="%" />
+	
+					<br />
+					<br />
+	
+					<h:outputText id="idPrecoVenda" value="#{msgs['label.precoVenda']} :" />
+						<rich:spacer width="15" /> 
+					<h:inputText value="#{manterProdutoVisao.produto.precoVenda}" disabled="true"
+						reRender="painelCadastrarProduto" /> 
+					
+					<br />
+					<br />
+	
+					<h:outputText value="#{msgs['label.categoria.produto']} :" />
+						<rich:spacer width="15" />
+					<h:selectOneMenu id="idComboCat"
+						value="#{manterProdutoVisao.produto.idCategoria}">
+						<f:selectItem itemValue=" " itemLabel="selecione" />
+	
+						<t:selectItems value="#{manterProdutoVisao.listaAllCategoria}"
+							var="cat" itemLabel="#{cat.nome}" itemValue="#{cat.idCategoria}" />
+	
+					</h:selectOneMenu>
+	
+					<br />
+					<br />
+				
+				</font>
+				
+				<div align="center">
+
+				<a4j:commandButton action="#{manterProdutoVisao.saveProduto()}"
+					style="font-family:verdana; size: 30; font-weight:bold;"
+					value="#{msgs['label.salvar']}" />
+					
+					<rich:spacer width="15" />
+					
+				<a4j:commandButton action="#{manterProdutoVisao.voltarTelaInicial}"
+						value="#{msgs['label.home']}"
+						title="#{msgs['MSG_H001']}"
+						style="font-family:verdana; size: 30; font-weight:bold;"
+						immediate="true" />
+					
+				</div>
+			</rich:panel>
+			<br />
+			<br />
+		</a4j:form>
+	</ui:define>
+
+</ui:composition>

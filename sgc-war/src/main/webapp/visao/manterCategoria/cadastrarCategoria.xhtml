@@ -1,0 +1,71 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	template="/common/layout/template.xhtml">
+
+
+	<ui:define name="body">
+
+
+		<a4j:form id="idFormCadastrarCategoria">
+			<ui:include src="/common/layout/menuPrincipal.xhtml" />
+			<br />
+			<br />
+			<rich:panel style="width:1100px; margin:0 auto; min-height:50px"
+				headerClass="outpanelHeader">
+				<f:facet name="header">
+				
+					<rich:spacer height="4" />
+					
+				</f:facet>
+				<h2 align="center">
+					<h:outputText value="#{msgs['label.categoria']}"
+						style="font-family:verdana; font-weight:bold;" />
+				</h2>
+			</rich:panel>
+			<rich:panel id="painelCategoria"
+				header="#{msgs['label.cadastrar.categoria']}"
+				style="width:1100px; margin:0 auto; min-height:500px">
+
+				<a4j:keepAlive beanName="manterCategoriaVisao" />
+
+				<font style="font-family: verdana; size: 30; font-weight: bold;">
+
+					<h:outputText value="#{msgs['label.nome.categoria']} :"
+						style="font-family: verdana; size: 30; font-weight: bold;" /> 
+						<rich:spacer width="15" /> 
+					<h:inputText value="#{manterCategoriaVisao.categoria.nome}" /> 
+					
+					<br />
+				    <br />
+
+					<div align="center">
+
+						<a4j:commandButton
+							action="#{manterCategoriaVisao.saveCategoria()}"
+							value="#{msgs['label.salvar']}"
+							style="font-family:verdana; size: 30; font-weight:bold;" />
+
+						<rich:spacer width="15" />
+
+						<a4j:commandButton
+							action="#{manterCategoriaVisao.voltarTelaInicial}"
+							value="#{msgs['label.home']}" title="#{msgs['MSG_H001']}"
+							style="font-family:verdana; size: 30; font-weight:bold;"
+							immediate="true" />
+					</div>
+
+				</font>
+			</rich:panel>
+			<br />
+			<br />
+		</a4j:form>
+	</ui:define>
+
+</ui:composition>

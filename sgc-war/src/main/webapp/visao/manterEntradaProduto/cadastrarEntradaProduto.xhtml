@@ -1,0 +1,162 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	template="/common/layout/template.xhtml">
+
+	<ui:define name="body">
+
+		<h:form id="idFormCadastrarEntradaProduto">
+
+			<ui:include src="/common/layout/menuPrincipal.xhtml" />
+			<br />
+			<br />
+			<a4j:keepAlive beanName="manterEntradaProdutoVisao" />
+
+			<rich:panel style="width:1100px; margin:0 auto; min-height:40px">
+				<f:facet name="header">
+					<rich:spacer height="4" />
+				</f:facet>
+				<h2 align="center">
+					<h:outputText value="#{msgs['label.entrada.produto']}"
+						style="font-family:verdana; size: 30; font-weight:bold;" />
+				</h2>
+			</rich:panel>
+
+			<rich:panel id="painelCadastrarEntradaProduto"
+				header="#{msgs['label.cadastrar.entrada.produto']}"
+				style="width:1100px; margin:0 auto; min-height:150px">
+
+				<br />
+				<br />
+
+				<font style="font-family: verdana; size: 30; font-weight: bold;">
+
+					<h:outputLabel value="#{msgs['label.nome.produto']} :" /> 
+					<rich:spacer width="15" /> 
+					<h:outputLabel value="#{manterEntradaProdutoVisao.entradaProduto.produto.nome}" />
+
+					<br /> 
+					
+					<h:outputLabel value="#{msgs['label.quantidade.estoque']} :" /> 
+						<rich:spacer width="15" /> 
+					<h:outputLabel value="#{manterEntradaProdutoVisao.entradaProduto.produto.quantidade}" />
+
+					<br /> 
+					
+					<h:outputLabel value="#{msgs['label.quantidade.entrada']} :" />
+						<rich:spacer width="15" /> 
+					<h:inputText value="#{manterEntradaProdutoVisao.entradaProduto.quantidadeEntrada}" />
+
+					<br />
+					
+					<h:outputText value="#{msgs['label.data']} :" /> 
+					<rich:spacer width="15" /> 
+					<rich:calendar
+						value="#{manterEntradaProdutoVisao.entradaProduto.data}"
+						id="idEntradaProduto" dataPattern="dd/MM/yyyy" label="DATA"
+						enableManualInput="false" /> 
+					<rich:spacer width="15" /> 
+					<h:outputText value="#{msgs['label.for']} :" /> 
+					<rich:spacer width="15" />
+					 <h:selectOneMenu id="idComboFor"
+						value="#{manterEntradaProdutoVisao.entradaProduto.idFornecedor}">
+					<f:selectItem itemValue=" " itemLabel="selecione" />
+
+					<t:selectItems
+						value="#{manterEntradaProdutoVisao.listaFornecedores}" var="for"
+						itemLabel="#{for.razaoSocial}" itemValue="#{for.idFornecedor}" />
+
+					</h:selectOneMenu>
+
+				</font>
+
+				<br />
+
+			</rich:panel>
+
+			<rich:panel id="idPanelHistorico"
+				header="#{msgs['label.historico.entradas']}"
+				style="width:1100px; margin:0 auto; min-height:350px">
+				<rich:dataTable id="idDataTableEntradaProduto"
+					value="#{manterEntradaProdutoVisao.listaEntradaProduto}"
+					var="entradaProduto" rows="8" width="100%">
+
+					<rich:column style="text-align:left;" width="120">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.data']}"
+								style="font-family:verdana; size: 30; font-weight:bold;" />
+						</f:facet>
+						<h:outputText value="#{entradaProduto.data}" />
+					</rich:column>
+
+					<rich:column style="text-align:left;" width="120">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.quantidade.entrada']}"
+								style="font-family:verdana; size: 30; font-weight:bold;" />
+						</f:facet>
+						<h:outputText value="#{entradaProduto.quantidadeEntrada}" />
+					</rich:column>
+
+					<rich:column style="text-align:left;" width="120">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.for']}"
+								style="font-family:verdana; size: 30; font-weight:bold;" />
+						</f:facet>
+						<h:outputText value="#{entradaProduto.fornecedor.razaoSocial}" />
+					</rich:column>
+
+					<rich:column style="text-align:center;" width="50">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.acao']}"
+								style="font-family:verdana; size: 30; font-weight:bold;" />
+						</f:facet>
+
+						<a4j:commandButton
+							action="#{manterEntradaProdutoVisao.excluirEntradaProduto(entradaProduto)}"
+							style="font-family:verdana; size: 30; font-weight:bold;"
+							image="/common/images/excluir.png"
+							title="#{msgs['label.excluir']}" value="#{msgs['label.excluir']}"
+							reRender="idFormCadastrarEntradaProduto" />
+
+					</rich:column>
+
+					<f:facet name="footer">
+						<rich:datascroller id="scrollTable"
+							for="idDataTableEntradaProduto" maxPages="10" />
+					</f:facet>
+
+				</rich:dataTable>
+
+				<br />
+
+				<div align="center">
+
+					<a4j:commandButton
+						action="#{manterEntradaProdutoVisao.voltarPesquisaEntradaProduto()}"
+						style="font-family:verdana; size: 30; font-weight:bold;"
+						value="#{msgs['label.voltar']}" />
+
+					<rich:spacer width="15" />
+
+					<a4j:commandButton
+						action="#{manterEntradaProdutoVisao.saveEntradaProduto()}"
+						style="font-family:verdana; size: 30; font-weight:bold;"
+						value="#{msgs['label.salvar']}" />
+
+				</div>
+
+			</rich:panel>
+
+			<br />
+			<br />
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>

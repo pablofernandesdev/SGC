@@ -1,0 +1,210 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+			    xmlns:ui="http://java.sun.com/jsf/facelets"
+			    xmlns:f="http://java.sun.com/jsf/core"
+			    xmlns:h="http://java.sun.com/jsf/html"
+			    xmlns:a4j="http://richfaces.org/a4j"
+			    xmlns:rich="http://richfaces.org/rich"
+			    xmlns:t="http://myfaces.apache.org/tomahawk"
+			    template="/common/layout/template.xhtml">
+
+	<ui:define name="body">
+		<a4j:form id="idFormPesquisarFornecedor">
+
+			<ui:include src="/common/layout/menuPrincipal.xhtml" />
+			<br />
+			<br />
+
+			<a4j:keepAlive beanName="manterFornecedorVisao" />
+
+			<rich:panel style="width:1100px; margin:0 auto; min-height:40px;"
+				headerClass="outpanelHeader">
+				<f:facet name="header">
+					<rich:spacer height="4" />
+				</f:facet>
+				<h2 align="center">
+					<h:outputText value="#{msgs['label.fornecedor']}" 
+					style="font-family:verdana; font-weight:bold;"/>
+				</h2>
+			</rich:panel>
+			<rich:panel id="painelPesquisarFornecedor"
+				header="#{msgs['label.pesquisar.fornecedor']}"
+				style="width: 1100px; margin:0 auto; height:500px">
+
+				<h:outputText value="#{msgs['label.razaoSocial']} :"
+					style="font-family:verdana; size: 30; font-weight:bold;" />
+				<rich:spacer width="15" />
+				<h:inputText value="#{manterFornecedorVisao.fornecedor.razaoSocial}" />
+
+				<rich:spacer width="15" />
+
+				<h:outputText value="#{msgs['label.cnpj']} :"
+					style="font-family:verdana; size: 30; font-weight:bold;" />
+				<rich:spacer width="15" />
+				<h:inputText value="#{manterFornecedorVisao.fornecedor.cnpj}" />
+
+				<rich:spacer width="15" />
+
+				<a4j:commandButton
+					action="#{manterFornecedorVisao.pesquisarFornecedor}"
+					style="font-family:verdana; size: 30; font-weight:bold;"
+					value="#{msgs['label.pesquisar']}"
+					image="/common/images/search.png"
+					title="#{msgs['label.pesquisar']}"
+					reRender="idDataTableResultado, idPainelMensagem" />
+
+				<br />
+				<br />
+
+				<rich:dataTable id="idDataTableResultado"
+					value="#{manterFornecedorVisao.listaFornecedores}" var="fornecedor"
+					rows="10" width="100%">
+
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.id']}" 
+							style="font-family:verdana; size: 30; font-weight:bold;"/>
+						</f:facet>
+						<h:outputText value="#{fornecedor.idFornecedor}" />
+					</rich:column>
+					
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.razaoSocial']}" 
+							style="font-family:verdana; size: 30; font-weight:bold;"/>
+						</f:facet>
+						<h:outputText value="#{fornecedor.razaoSocial}" />
+					</rich:column>
+					
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.nomeFantasia']}" 
+							style="font-family:verdana; size: 30; font-weight:bold;"/>
+						</f:facet>
+						<h:outputText value="#{fornecedor.nomeFantasia}" />
+					</rich:column>
+					
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.cnpj']}" 
+							style="font-family:verdana; size: 30; font-weight:bold;"/>
+						</f:facet>
+						<h:outputText value="#{fornecedor.cnpjComMascara}" />
+					</rich:column>
+					
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.email']}" 
+							style="font-family:verdana; size: 30; font-weight:bold;"/>
+						</f:facet>
+						<h:outputText value="#{fornecedor.email}" />
+					</rich:column>
+					
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.telCel']}" 
+							style="font-family:verdana; size: 30; font-weight:bold;"/>
+						</f:facet>
+						<h:outputText value="#{fornecedor.telCelComMascara}" />
+					</rich:column>
+					
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.telFixo']}" 
+							style="font-family:verdana; size: 30; font-weight:bold;"/>
+						</f:facet>
+						<h:outputText value="#{fornecedor.telFixoComMascara}" />
+					</rich:column>
+					
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.bairro']}" 
+							style="font-family:verdana; size: 30; font-weight:bold;"/>
+						</f:facet>
+						<h:outputText value="#{fornecedor.bairro}" />
+					</rich:column>
+					
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.cidade']}" 
+							style="font-family:verdana; size: 30; font-weight:bold;"/>
+						</f:facet>
+						<h:outputText value="#{fornecedor.cidade}" />
+					</rich:column>
+					
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.logradouro']}" 
+							style="font-family:verdana; size: 30; font-weight:bold;"/>
+						</f:facet>
+						<h:outputText value="#{fornecedor.logradouro}" />
+					</rich:column>
+					
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.uf']}" 
+							style="font-family:verdana; size: 30; font-weight:bold;"/>
+						</f:facet>
+						<h:outputText value="#{fornecedor.uf}" />
+					</rich:column>
+
+					<rich:column style="text-align:center;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.acao']}"
+								style="font-family:verdana; size: 30; font-weight:bold;" />
+						</f:facet>
+						
+						<h:commandButton
+							action="#{manterFornecedorVisao.irTelaEditarFornecedor(fornecedor)}"
+							style="font-family:verdana; size: 30; font-weight:bold;"
+							image="/common/images/editar.png" title="#{msgs['label.editar']}"
+							value="#{msgs['label.editar']}" immediate="true"
+							reRender="idDataTableResultado" 
+							rendered="#{usuarioSessao.instance.usuario.status ne 'V'}"/>
+						<rich:spacer width="10" />
+						
+						<a4j:commandButton
+							action="#{manterFornecedorVisao.deleteFornecedor(fornecedor.idFornecedor)}"
+							style="font-family:verdana; size: 30; font-weight:bold;"
+							image="/common/images/excluir.png"
+							title="#{msgs['label.excluir']}" value="#{msgs['label.excluir']}"
+							immediate="true" reRender="idDataTableResultado, idFormPesquisarFornecedor" 
+							rendered="#{usuarioSessao.instance.usuario.status ne 'V'}"/>
+					</rich:column>
+
+					<f:facet name="footer">
+						<rich:datascroller id="scrollTable" for="idDataTableResultado"
+							maxPages="10" />
+					</f:facet>
+
+				</rich:dataTable>
+
+				<br />
+				<br />
+				
+				<div align="center">
+				
+				<a4j:commandButton
+					action="#{manterFornecedorVisao.irTelaCadastrarFornecedor}"
+					title="#{msgs['MSG_H005']}"
+					style="font-family:verdana; size: 30; font-weight:bold;"
+					value="#{msgs['label.cadastrar.fornecedor']}" immediate="true"
+					rendered="#{usuarioSessao.instance.usuario.status ne 'V'}" />
+					
+					<rich:spacer width="15" />
+					
+				<a4j:commandButton action="#{manterFornecedorVisao.voltarTelaInicial}"
+						value="#{msgs['label.home']}"
+						title="#{msgs['MSG_H001']}"
+						style="font-family:verdana; size: 30; font-weight:bold;"
+						immediate="true" />
+
+				</div>
+			</rich:panel>
+			<br />
+			<br />
+		</a4j:form>
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,147 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	template="/common/layout/template.xhtml">
+
+	<ui:define name="body">
+
+		<h:form id="idFormRegistrarVenda">
+
+			<ui:include src="/common/layout/menuPrincipal.xhtml" />
+			<br />
+			<br />
+			<a4j:keepAlive beanName="manterVendaVisao" />
+
+			<rich:panel style="width:1100px; margin:0 auto; min-height:40px">
+				<f:facet name="header">
+					<rich:spacer height="4" />
+				</f:facet>
+				<h2 align="center">
+					<h:outputText value="#{msgs['label.venda']}"
+						style="font-family:verdana; font-weight:bold;" />
+				</h2>
+			</rich:panel>
+
+			<rich:panel id="painelRegistrarVenda"
+				header="#{msgs['label.detalhar.venda']}"
+				style="width: 1100px; margin:0 auto; height:600px">
+
+				<rich:panel id="idPainelProduto" header="#{msgs['label.produtos']}"
+					style="width: 980px; margin:0 auto; height:500px">
+
+					<rich:dataTable id="idDataTableResultadoProduto"
+						value="#{manterVendaVisao.listaSaidaProduto}" var="saidaProduto"
+						rows="15" header="#{msgs['label.cadastrar.produto']}"
+						style="width: 920px; margin:0 auto; height:60px">
+
+						<rich:column style="text-align:left;" width="120">
+							<f:facet name="header">
+								<h:outputText value="#{msgs['label.id']}"
+									style="font-family:verdana; size: 30; font-weight:bold;" />
+							</f:facet>
+							<h:outputText value="#{saidaProduto.produto.idProduto}" />
+						</rich:column>
+
+						<rich:column style="text-align:left;" width="120">
+							<f:facet name="header">
+								<h:outputText value="#{msgs['label.nome']}"
+									style="font-family:verdana; size: 30; font-weight:bold;" />
+							</f:facet>
+							<h:outputText value="#{saidaProduto.produto.nome}" />
+						</rich:column>
+
+						<rich:column style="text-align:left;" width="120">
+							<f:facet name="header">
+								<h:outputText value="#{msgs['label.descricao']}"
+									style="font-family:verdana; size: 30; font-weight:bold;" />
+							</f:facet>
+							<h:outputText value="#{saidaProduto.produto.descricao}" />
+						</rich:column>
+
+						<rich:column style="text-align:left;" width="120">
+							<f:facet name="header">
+								<h:outputText value="#{msgs['label.marca']}"
+									style="font-family:verdana; size: 30; font-weight:bold;" />
+							</f:facet>
+							<h:outputText value="#{saidaProduto.produto.marca}" />
+						</rich:column>
+
+						<rich:column style="text-align:left;" width="50">
+							<f:facet name="header">
+								<h:outputText value="#{msgs['label.quantidade']}"
+									style="font-family:verdana; size: 30; font-weight:bold;" />
+							</f:facet>
+							<h:outputText value="#{saidaProduto.quantidadeSaida}">
+								<a4j:support event="onblur"
+									action="#{manterVendaVisao.multiplicarPrecoQtd(saidaProduto)}"
+									reRender="idPainelProduto" />
+							</h:outputText>
+						</rich:column>
+
+						<rich:column style="text-align:left;" width="120">
+							<f:facet name="header">
+								<h:outputText value="#{msgs['label.precoVenda']}"
+									style="font-family:verdana; size: 30; font-weight:bold;" />
+							</f:facet>
+							<h:outputText value="#{saidaProduto.precoVendaSaidaComMascara}" />
+						</rich:column>
+
+						<rich:column id="totalSomado" style="text-align:left;" width="50">
+							<f:facet name="header">
+								<h:outputText value="#{msgs['label.totalSomado']}"
+									style="font-family:verdana; size: 30; font-weight:bold;" />
+							</f:facet>
+							<h:outputText value="#{saidaProduto.totalSomadoComMascara}" />
+						</rich:column>
+
+						<f:facet name="footer">
+							<rich:datascroller id="scrollTable"
+								for="idDataTableResultadoProduto" maxPages="5" />
+						</f:facet>
+
+					</rich:dataTable>
+					<br />
+
+					<h:panelGrid id="idPaneltotalGeral" columns="2">
+						<h:outputLabel value="#{msgs['label.total']} :"
+							style="font-family:verdana; font-size: 15px; font-weight:bold;" />
+						<h:outputText id="idTxtTotalGeral"
+							value="#{manterVendaVisao.totalGeralComMascara}"
+							style="font-family:verdana; font-size: 15px; font-weight:bold;" />
+
+					</h:panelGrid>
+
+				</rich:panel>
+
+				<br />
+				<br />
+
+				<div align="center">
+
+					<a4j:commandButton
+						action="#{manterVendaVisao.voltarPesquisaVenda()}"
+						style="font-family:verdana; size: 30; font-weight:bold;"
+						value="#{msgs['label.voltar']}" />
+
+					<rich:spacer width="15" />
+
+					<a4j:commandButton action="#{manterVendaVisao.voltarTelaInicial}"
+						value="#{msgs['label.home']}" immediate="true"
+						style="font-family:verdana; font-weight:bold;" />
+
+				</div>
+
+			</rich:panel>
+			<br />
+			<br />
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>

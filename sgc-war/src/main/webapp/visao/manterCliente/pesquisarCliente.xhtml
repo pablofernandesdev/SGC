@@ -1,0 +1,226 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+			    xmlns:ui="http://java.sun.com/jsf/facelets"
+			    xmlns:f="http://java.sun.com/jsf/core"
+			    xmlns:h="http://java.sun.com/jsf/html"
+			    xmlns:a4j="http://richfaces.org/a4j"
+			    xmlns:rich="http://richfaces.org/rich"
+			    xmlns:t="http://myfaces.apache.org/tomahawk"
+			    template="/common/layout/template.xhtml">
+
+	<ui:define name="body">
+		<a4j:form id="idFormPesquisarCliente">
+
+			<ui:include src="/common/layout/menuPrincipal.xhtml" />
+			<br />
+			<br />
+			<a4j:keepAlive beanName="manterClienteVisao" />
+
+			<rich:panel style="width:1100px; margin:0 auto; min-height:40px" 
+				header="t">
+				<f:facet name="header">
+					<rich:spacer height="4" />
+				</f:facet>
+				<h2 align="center" style="font-family:verdana; size: 30; font-weight:bold;">
+					<h:outputText value="#{msgs['label.cliente']}" />
+				</h2>
+			</rich:panel>
+						
+			<rich:panel id="painelPesquisarCliente"
+				header="#{msgs['label.pesquisar.cliente']} "
+				style="width:1100px; margin:0 auto; min-height:500px">
+				
+					<font style="font-family:verdana; size: 30; font-weight:bold;">	
+
+				<h:outputText value="#{msgs['label.nome.cliente']} :" />
+					<rich:spacer width="15" />
+				<h:inputText value="#{manterClienteVisao.cliente.nome}" />
+					<rich:spacer width="15" />
+					
+				<h:outputText value="#{msgs['label.cpf']} :" />
+					<rich:spacer width="15" />
+				<h:inputText value="#{manterClienteVisao.cliente.cpf}" />
+					<rich:spacer width="15" />
+					
+					<a4j:commandButton action="#{manterClienteVisao.pesquisarCliente}"
+						style="font-family:verdana; size: 30; font-weight:bold;"
+						value="#{msgs['label.pesquisar']}"
+						image="/common/images/search.png" 
+							title="#{msgs['label.pesquisar']}"
+						reRender="idDataTableResultado, idPainelMensagem, painelPesquisarCliente" />
+
+				<br />
+				<br />
+
+				<rich:dataTable id="idDataTableResultado"
+					
+					value="#{manterClienteVisao.listaClientes}" var="cliente" rows="10"
+					width="100%">
+
+					<rich:column style="text-align:left;">
+							<f:facet name="header">
+								<h:outputText
+									style="font-family:verdana; size: 30; font-weight:bold;"
+									value="#{msgs['label.id']}" />
+							</f:facet>
+							<h:outputText value="#{cliente.idCliente}" />
+					</rich:column>
+
+					<rich:column style="text-align:left;">
+							<f:facet name="header">
+								<h:outputText
+									style="font-family:verdana; size: 30; font-weight:bold;"
+									value="#{msgs['label.nome']}" />
+							</f:facet>
+							<h:outputText value="#{cliente.nome}" />
+					</rich:column>
+
+					<rich:column style="text-align:left;">
+							<f:facet name="header">
+								<h:outputText
+									style="font-family:verdana; size: 30; font-weight:bold;"
+									value="#{msgs['label.cpf']}" />
+							</f:facet>
+							<h:outputText value="#{cliente.cpfComMascara}" />
+					</rich:column>
+					
+					<rich:column style="text-align:left;">
+							<f:facet name="header">
+								<h:outputText
+									style="font-family:verdana; size: 30; font-weight:bold;"
+									value="#{msgs['label.data.nascimento']}" />
+							</f:facet>
+							<h:outputText value="#{cliente.nascimento}" />
+					</rich:column>
+					
+					<rich:column style="text-align:left;">
+							<f:facet name="header">
+								<h:outputText
+									style="font-family:verdana; size: 30; font-weight:bold;"
+									value="#{msgs['label.sexo']}" />
+							</f:facet>
+							<h:outputText value="#{cliente.sexo}" />
+					</rich:column>
+					
+					<rich:column style="text-align:left;">
+							<f:facet name="header">
+								<h:outputText
+									style="font-family:verdana; size: 30; font-weight:bold;"
+									value="#{msgs['label.email']}" />
+							</f:facet>
+							<h:outputText value="#{cliente.email}" />
+					</rich:column>
+					
+					<rich:column style="text-align:left;">
+							<f:facet name="header">
+								<h:outputText
+									style="font-family:verdana; size: 30; font-weight:bold;"
+									value="#{msgs['label.telCel']}" />
+							</f:facet>
+							<h:outputText value="#{cliente.telCelComMascara}" />
+					</rich:column>
+					
+					<rich:column style="text-align:left;">
+							<f:facet name="header">
+								<h:outputText
+									style="font-family:verdana; size: 30; font-weight:bold;"
+									value="#{msgs['label.telFixo']}" />
+							</f:facet>
+							<h:outputText value="#{cliente.telFixoComMascara}" />
+					</rich:column>
+					
+					<rich:column style="text-align:left;">
+							<f:facet name="header">
+								<h:outputText
+									style="font-family:verdana; size: 30; font-weight:bold;"
+									value="#{msgs['label.cep']}" />
+							</f:facet>
+							<h:outputText value="#{cliente.cep}" />
+					</rich:column>
+					
+					<rich:column style="text-align:left;">
+							<f:facet name="header">
+								<h:outputText
+									style="font-family:verdana; size: 30; font-weight:bold;"
+									value="#{msgs['label.logradouro']}" />
+							</f:facet>
+							<h:outputText value="#{cliente.logradouro}" />
+					</rich:column>
+					
+					<rich:column style="text-align:left;">
+							<f:facet name="header">
+								<h:outputText
+									style="font-family:verdana; size: 30; font-weight:bold;"
+									value="#{msgs['label.cidade']}" />
+							</f:facet>
+							<h:outputText value="#{cliente.cidade}" />
+					</rich:column>
+					
+					<rich:column style="text-align:left;">
+							<f:facet name="header">
+								<h:outputText
+									style="font-family:verdana; size: 30; font-weight:bold;"
+									value="#{msgs['label.uf']}" />
+							</f:facet>
+							<h:outputText value="#{cliente.uf}" />
+					</rich:column>
+
+					<rich:column style="text-align:center;">
+						<f:facet name="header">
+							<h:outputText 
+							style="font-family:verdana; size: 30; font-weight:bold;"
+							value="#{msgs['label.acao']}" />
+						</f:facet>
+						<h:commandButton
+							action="#{manterClienteVisao.irTelaEditarCliente(cliente)}"
+							style="font-family:verdana; size: 30; font-weight:bold;"
+							image="/common/images/editar.png" 
+							title="#{msgs['label.editar']}"
+							value="#{msgs['label.editar']}" immediate="true" reRender="idPainelMensagem, painelPesquisarCliente, 
+								idFormPesquisarCliente, idDataTableResultado," />
+						<rich:spacer width="15" />
+						<a4j:commandButton
+							action="#{manterClienteVisao.deleteCliente(cliente.idCliente)}"
+							style="font-family:verdana; size: 30; font-weight:bold;"
+							image="/common/images/excluir.png" 
+							title="#{msgs['label.excluir']}"
+							value="#{msgs['label.excluir']}" immediate="true" reRender="idDataTableResultado, idFormPesquisarCliente,idPainelMensagem" 
+							rendered="#{usuarioSessao.instance.usuario.status ne 'V'}"/>
+					</rich:column>
+
+					<f:facet name="footer">
+						<rich:datascroller id="scrollTable" for="idDataTableResultado"
+							maxPages="10" />
+					</f:facet>
+					
+				</rich:dataTable>
+
+				<br />
+				<br />
+
+				<div align="center" >
+
+					<a4j:commandButton
+						action="#{manterClienteVisao.irTelaCadastrarCliente}"
+						style="font-family:verdana; size: 30; font-weight:bold;"
+						value="#{msgs['label.cadastrar.cliente']}" immediate="true" 
+						title="#{msgs['MSG_H002']}" />
+						
+					<rich:spacer width="10" />
+
+					<a4j:commandButton action="#{manterClienteVisao.voltarTelaInicial}"
+						value="#{msgs['label.home']}"
+						title="#{msgs['MSG_H001']}"
+						style="font-family:verdana; size: 30; font-weight:bold;"
+						immediate="true" />
+
+				</div>
+				</font>
+			</rich:panel>
+			<br />
+			<br />
+		</a4j:form>
+	</ui:define>
+
+</ui:composition>

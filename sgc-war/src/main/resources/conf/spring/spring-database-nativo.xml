@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:util="http://www.springframework.org/schema/util" xmlns:jee="http://www.springframework.org/schema/jee"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd" default-autowire="byName">
+    <jee:jndi-lookup id="entityManagerFactory" jndi-name="sgc-PU" />
+    <bean name="txManager" class="org.springframework.transaction.jta.JtaTransactionManager" />
+	<bean id="scheduler"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean"
+		lazy-init="true">
+		<property name="applicationContextSchedulerContextKey" value="applicationContext" />
+		<property name="transactionManager" ref="txManager" />
+		<property name="overwriteExistingJobs" value="true" />
+		<property name="autoStartup" value="true" />
+		<property name="quartzProperties">
+			<props>
+				<prop key="org.quartz.scheduler.instanceName">SomeBatchScheduler</prop>
+				<prop key="org.quartz.scheduler.instanceId">AUTO</prop>
+				<prop key="org.quartz.jobStore.misfireThreshold">60000</prop>
+				<prop key="org.quartz.jobStore.class">org.quartz.impl.jdbcjobstore.JobStoreTX
+				</prop>
+				<prop key="org.quartz.jobStore.driverDelegateClass">org.quartz.impl.jdbcjobstore.oracle.OracleDelegate
+				</prop>
+				<prop key="org.quartz.jobStore.tablePrefix">${database.schema}.TB_QRTZ_</prop>
+				<prop key="org.quartz.jobStore.isClustered">true</prop>
+				<prop key="org.quartz.threadPool.class">org.quartz.simpl.SimpleThreadPool
+				</prop>
+				<prop key="org.quartz.threadPool.threadCount">5</prop>
+				<prop key="org.quartz.threadPool.threadPriority">5</prop> 
+				<prop key="org.quartz.dataSource.ppj.jndiURL">${database.jndi}</prop>
+				<prop key="org.quartz.jobStore.dataSource">ppj</prop>
+			</props>
+		</property>
+	</bean>    
+    
+    <tx:advice id="txAdvice" transaction-manager="txManager">
+        <tx:attributes>
+            <tx:method name="save*" rollback-for="Exception" propagation="REQUIRED" />
+            <tx:method name="update*" rollback-for="Exception" propagation="REQUIRED" />
+            <tx:method name="delete*" rollback-for="Exception" propagation="REQUIRED" />
+            <tx:method name="*" propagation="SUPPORTS" />
+        </tx:attributes>
+    </tx:advice>
+    <aop:config>
+        <aop:pointcut id="defaultServiceOperation" expression="execution(* br.com.sgc.service.*Service.*(..))" />
+        <aop:advisor pointcut-ref="defaultServiceOperation" advice-ref="txAdvice" />
+    </aop:config>
+</beans>

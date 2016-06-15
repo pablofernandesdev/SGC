@@ -1,0 +1,197 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+			    xmlns:ui="http://java.sun.com/jsf/facelets"
+			    xmlns:f="http://java.sun.com/jsf/core"
+			    xmlns:h="http://java.sun.com/jsf/html"
+			    xmlns:a4j="http://richfaces.org/a4j"
+			    xmlns:rich="http://richfaces.org/rich"
+			    xmlns:t="http://myfaces.apache.org/tomahawk"
+			    template="/common/layout/template.xhtml">
+
+	<ui:define name="body">
+		<a4j:form id="idFormEditarCliente">
+
+			<ui:include src="/common/layout/menuPrincipal.xhtml" />
+			<br />
+			<br />
+			<a4j:keepAlive beanName="manterClienteVisao" />
+
+			<rich:panel style="width:1100px; margin:0 auto; min-height:40px"
+				header="t">
+				<f:facet name="header">
+					<rich:spacer height="4" />
+				</f:facet>
+				<h2 align="center">
+					<h:outputText value="#{msgs['label.cliente']}"
+						style="font-family:verdana; size: 30; font-weight:bold;" />
+				</h2>
+			</rich:panel>
+
+			<rich:panel id="painelEditarCliente"
+				header="#{msgs['label.editar.cliente']}"
+				style="width:1100px; margin:0 auto; min-height:500px">
+
+				<font style="font-family:verdana; size: 30; font-weight:bold;"> 
+				
+				<h:outputText value="#{msgs['label.dados.pessoais']} :" style="color:red;"/>
+				<br />
+				<br />
+				
+				<h:outputText value="#{msgs['label.id']} :" />
+					<rich:spacer width="15" />
+				<h:inputText value="#{manterClienteVisao.cliente.idCliente}"
+					disabled="true" />
+					
+				<br />
+				<br />
+
+				<h:outputText value="#{msgs['label.nome']} :" />
+					<rich:spacer width="15" />
+				<h:inputText value="#{manterClienteVisao.cliente.nome}" />
+
+				<br />
+				<br />
+				
+				<h:outputText value="#{msgs['label.cpf']} :" />
+					<rich:spacer width="15" />
+				<h:inputText id="idCpf" value="#{manterClienteVisao.cliente.cpf}">
+					<rich:jQuery selector="#idCpf" query="mask('999.999.999-99')"
+						timing="onload" />
+				</h:inputText>
+
+				<br />
+				<br />
+
+				<h:outputText value="#{msgs['label.data.nascimento']} :" />
+					<rich:spacer width="15" />
+				<rich:calendar value="#{manterClienteVisao.cliente.nascimento}"
+					id="idDataNascimento" dataPattern="dd/MM/yyyy"
+					label="#{msgs['label.data.nascimento']}" enableManualInput="false" />
+
+				<br />
+				<br />
+
+				<h:outputText value="#{msgs['label.sexo']} :"  />
+				<h:selectOneRadio value="#{manterClienteVisao.cliente.sexo}">
+					<t:selectItems value="#{manterClienteVisao.sexos}" var="sexo"
+						itemLabel="#{sexo.descricao}" itemValue="#{sexo.sigla}" />
+				</h:selectOneRadio>
+				
+				<br />
+				<br />
+				
+				<h:outputText value="#{msgs['label.contato']} :" style="color:red;"/>
+
+				<br />
+				<br />
+
+				<h:outputText value="#{msgs['label.email']} :" />
+					<rich:spacer width="15" />
+				<h:inputText value="#{manterClienteVisao.cliente.email}"/>
+				
+				<br />
+				<br />
+
+				<h:outputText value="#{msgs['label.telCel']} :" />
+					<rich:spacer width="15" />
+				<h:inputText id="idTelCel"
+					value="#{manterClienteVisao.cliente.telCel}">
+					<rich:jQuery selector="#idTelCel" query="mask('(99) 9999-9999?9')"
+						timing="onload" />
+				</h:inputText>
+
+				<br />
+				<br />
+
+				<h:outputText value="#{msgs['label.telFixo']} :" />
+					<rich:spacer width="15" />
+				<h:inputText id="idTelFixo"
+					value="#{manterClienteVisao.cliente.telFixo}">
+					<rich:jQuery selector="#idTelFixo" query="mask('(99) 9999-9999?9')"
+						timing="onload" />
+				</h:inputText>
+
+				<br />
+				<br />
+				
+				<h:outputText value="#{msgs['label.endereco']} :" style="color:red;"/>
+
+				<br />
+				<br />
+				
+				<h:outputText value="#{msgs['label.cep']} :" />
+					<rich:spacer width="15" />
+				<h:inputText id="idCep" value="#{manterClienteVisao.cliente.cep}">
+					<rich:jQuery selector="#idCep" query="mask('99999-999')"
+						timing="onload" />
+				</h:inputText>
+
+				<br />
+				<br />
+				
+				<h:outputText value="#{msgs['label.logradouro']} :" />
+					<rich:spacer width="15" />
+				<h:inputText value="#{manterClienteVisao.cliente.logradouro}" />
+
+				<br />
+				<br />
+				
+				<h:outputText value="#{msgs['label.complemento']} :" />
+					<rich:spacer width="15" />
+				<h:inputText value="#{manterClienteVisao.cliente.complemento}" />
+
+				<br />
+				<br />
+
+				<h:outputText value="#{msgs['label.bairro']} :" />
+					<rich:spacer width="15" />
+				<h:inputText value="#{manterClienteVisao.cliente.bairro}" />
+
+				<br />
+				<br />
+
+				<h:outputText value="#{msgs['label.cidade']} :" />
+					<rich:spacer width="15" />
+				<h:inputText value="#{manterClienteVisao.cliente.cidade}" />
+
+				<br />
+				<br />
+
+				<h:outputText value="#{msgs['label.uf']} :" />
+					<rich:spacer width="15" />
+
+				<h:selectOneMenu id="selectOneMenu"
+					value="#{manterClienteVisao.cliente.uf}">
+					<f:selectItem itemValue="" itemLabel="selecione" />
+					<t:selectItems value="#{manterClienteVisao.estados}" var="estado"
+						itemLabel="#{estado.sigla}" itemValue="#{estado.sigla}" />
+				</h:selectOneMenu>
+
+				<br />
+				<br />
+				
+				</font>
+
+				<br />
+				<br />
+
+				<div align="center">
+
+					<a4j:commandButton
+						action="#{manterClienteVisao.voltarPesquisaCliente()}"
+						style="font-family:verdana; size: 30; font-weight:bold;"
+						value="#{msgs['label.voltar']}" reRender="painelEditarCliente" />
+						<rich:spacer width="10" />
+
+					<a4j:commandButton action="#{manterClienteVisao.updateCliente()}"
+						style="font-family:verdana; size: 30; font-weight:bold;"
+						value="#{msgs['label.atualizar']}" reRender="painelEditarCliente" />
+				</div>
+			</rich:panel>
+			<br />
+			<br />
+		</a4j:form>
+	</ui:define>
+
+</ui:composition>

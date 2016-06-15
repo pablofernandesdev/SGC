@@ -1,0 +1,160 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	template="/common/layout/template.xhtml">
+
+	<ui:define name="body">
+		<a4j:form id="idFormPesquisarEmpresa">
+
+			<ui:include src="/common/layout/menuPrincipal.xhtml" />
+			<br />
+			<br />
+
+			<a4j:keepAlive beanName="manterEmpresaVisao" />
+
+			<rich:panel style="width:1100px; margin:0 auto; min-height:40px;"
+				headerClass="outpanelHeader">
+				<f:facet name="header">
+					<rich:spacer height="4" />
+				</f:facet>
+				<h2 align="center">
+					<h:outputText value="#{msgs['label.empresa'].toUpperCase()}"
+						style="font-family:verdana; font-weight:bold;" />
+				</h2>
+			</rich:panel>
+
+			<rich:panel id="painelPesquisarEmpresa"
+				header="#{msgs['label.dados.empresa']}"
+				style="width: 1100px; margin:0 auto; height:500px">
+
+				<br />
+				<br />
+
+				<rich:dataTable id="idDataTableResultadoEmpresa"
+					value="#{manterEmpresaVisao.listaEmpresas}" var="empresa" rows="10"
+					style="width: 920px; margin:0 auto; height:30px">
+
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.razaoSocial']}"
+								style="font-family:verdana; size: 30; font-weight:bold;" />
+						</f:facet>
+						<h:outputText value="#{empresa.razaoSocial}" />
+					</rich:column>
+
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.nomeFantasia']}"
+								style="font-family:verdana; size: 30; font-weight:bold;" />
+						</f:facet>
+						<h:outputText value="#{empresa.nomeFantasia}" />
+					</rich:column>
+
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.cnpj']}"
+								style="font-family:verdana; size: 30; font-weight:bold;" />
+						</f:facet>
+						<h:outputText value="#{empresa.cnpjComMascara}" />
+					</rich:column>
+
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.email']}"
+								style="font-family:verdana; size: 30; font-weight:bold;" />
+						</f:facet>
+						<h:outputText value="#{empresa.email}" />
+					</rich:column>
+
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.telCel']}"
+								style="font-family:verdana; size: 30; font-weight:bold;" />
+						</f:facet>
+						<h:outputText value="#{empresa.telCelComMascara}" />
+					</rich:column>
+
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.telFixo']}"
+								style="font-family:verdana; size: 30; font-weight:bold;" />
+						</f:facet>
+						<h:outputText value="#{empresa.telFixoComMascara}" />
+					</rich:column>
+
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.bairro']}"
+								style="font-family:verdana; size: 30; font-weight:bold;" />
+						</f:facet>
+						<h:outputText value="#{empresa.bairro}" />
+					</rich:column>
+
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.cidade']}"
+								style="font-family:verdana; size: 30; font-weight:bold;" />
+						</f:facet>
+						<h:outputText value="#{empresa.cidade}" />
+					</rich:column>
+
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.logradouro']}"
+								style="font-family:verdana; size: 30; font-weight:bold;" />
+						</f:facet>
+						<h:outputText value="#{empresa.logradouro}" />
+					</rich:column>
+
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.uf']}"
+								style="font-family:verdana; size: 30; font-weight:bold;" />
+						</f:facet>
+						<h:outputText value="#{empresa.uf}" />
+					</rich:column>
+
+					<rich:column style="text-align:center;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.acao']}"
+								style="font-family:verdana; size: 30; font-weight:bold;" />
+						</f:facet>
+
+						<h:commandButton
+							action="#{manterEmpresaVisao.irTelaEditarEmpresa(empresa)}"
+							style="font-family:verdana; size: 30; font-weight:bold;"
+							image="/common/images/editar.png" title="#{msgs['label.editar']}"
+							value="#{msgs['label.editar']}" immediate="true"
+							reRender="idDataTableResultado"
+							rendered="#{usuarioSessao.instance.usuario.status ne 'V'}" />
+						<rich:spacer width="10" />
+
+					</rich:column>
+
+				</rich:dataTable>
+
+				<br />
+				<br />
+				<div align="center">
+
+					<a4j:commandButton action="#{manterEmpresaVisao.voltarTelaInicial}"
+						value="#{msgs['label.home']}" title="#{msgs['MSG_H001']}"
+						style="font-family:verdana; size: 30; font-weight:bold;"
+						immediate="true" />
+
+				</div>
+
+			</rich:panel>
+
+			<br />
+			<br />
+		</a4j:form>
+	</ui:define>
+
+</ui:composition>

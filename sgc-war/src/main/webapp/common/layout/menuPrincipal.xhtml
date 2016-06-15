@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+			    xmlns:ui="http://java.sun.com/jsf/facelets"
+			    xmlns:f="http://java.sun.com/jsf/core"
+			    xmlns:h="http://java.sun.com/jsf/html"
+			    xmlns:a4j="http://richfaces.org/a4j"
+			    xmlns:rich="http://richfaces.org/rich"
+			    xmlns:t="http://myfaces.apache.org/tomahawk">
+			    
+        <rich:toolBar id="idtoolBar">
+
+            <rich:dropDownMenu id="iddropDownMenu">
+            
+                <f:facet name="label"> 
+                    <h:panelGroup>
+                        <h:outputText value="Cadastros"/>
+                    </h:panelGroup>
+                </f:facet>
+                
+                <rich:menuItem id="idMenuItemCliente"
+                			   submitMode="ajax" 
+                			   value="Cliente"
+                               action="#{manterClienteVisao.irTelaCadastrarCliente()}">
+                </rich:menuItem>
+                <rich:menuItem id="idMenuItemCategoria"
+                			   submitMode="ajax" 
+                			   value="Categoria"
+                               action="#{manterCategoriaVisao.irTelaCadastrarCategoria()}"
+                               rendered="#{usuarioSessao.instance.usuario.status ne 'V'}">
+                </rich:menuItem>
+                <rich:menuItem id="idMenuItemUsuario"
+                			   submitMode="ajax" 
+                			   value="Usuario"
+                               action="#{manterUsuarioVisao.irTelaCadastrarUsuario()}"
+                               rendered="#{usuarioSessao.instance.usuario.status ne 'V'}">
+                </rich:menuItem>
+                <rich:menuItem id="idMenuItemFornecedor"
+                			   submitMode="ajax" 
+                			   value="Fornecedor"
+                               action="#{manterFornecedorVisao.irTelaCadastrarFornecedor()}"
+                               rendered="#{usuarioSessao.instance.usuario.status ne 'V'}">
+                </rich:menuItem>
+                
+                <rich:menuItem id="idMenuItemProduto"
+                			   submitMode="ajax" 
+                			   value="Produto"
+                               action="#{manterProdutoVisao.irTelaCadastrarProduto()}"
+                               rendered="#{usuarioSessao.instance.usuario.status ne 'V'}">
+                </rich:menuItem>
+                
+                <rich:menuItem id="idMenuItemEmpresa"
+                			   submitMode="ajax" 
+                			   value="Dados Cadastrais da Empresa"
+                               action="#{manterEmpresaVisao.irTelaPesquisarEmpresa()}"
+                               rendered="#{usuarioSessao.instance.usuario.status ne 'V'}">
+                </rich:menuItem>
+       
+            </rich:dropDownMenu>
+            
+            <rich:dropDownMenu>
+               <f:facet name="label"> 
+                    <h:panelGroup>
+                        <h:outputText value="Pesquisar"/>
+                    </h:panelGroup>
+                </f:facet>
+            	<rich:menuItem id="idMenuItemPesquisarCliente"
+                			   submitMode="ajax" 
+                			   value="Cliente"
+                               action="#{manterClienteVisao.irTelaPesquisarCliente()}">
+                </rich:menuItem>
+                
+                <rich:menuItem id="idMenuItemPesquisarUsuario"
+                			   submitMode="ajax" 
+                			   value="Usuario"
+                               action="#{manterUsuarioVisao.irTelaPesquisarUsuario()}"
+                               rendered="#{usuarioSessao.instance.usuario.status ne 'V'}">
+                </rich:menuItem>
+                
+                <rich:menuItem id="idMenuItemPesquisarFornecedor"
+                			   submitMode="ajax" 
+                			   value="Fornecedor"
+                               action="#{manterFornecedorVisao.irTelaPesquisarFornecedor()}">
+                </rich:menuItem>
+                
+                <rich:menuItem id="idMenuItemPesquisarProduto"
+                			   submitMode="ajax" 
+                			   value="Produto"
+                               action="#{manterProdutoVisao.irTelaPesquisarProduto()}">
+                </rich:menuItem>
+                <rich:menuItem id="idMenuItemPesquisarCategoria"
+                			   submitMode="ajax" 
+                			   value="Categoria"
+                               action="#{manterCategoriaVisao.irTelaPesquisarCategoria()}">
+                </rich:menuItem>
+            
+            </rich:dropDownMenu>
+            
+            <rich:dropDownMenu>
+             <f:facet name="label"> 
+                    <h:panelGroup>
+                        <h:outputText value="Relatórios" rendered="#{usuarioSessao.instance.usuario.status ne 'V'}"/>
+                    </h:panelGroup>
+                </f:facet>
+            	<rich:menuItem id="idMenuItemRelatorios"
+                			   submitMode="ajax" 
+                			   value="#{msgs['label.relatorio.vendas.usuario']}"
+                               action="#{relatorioVendaVisao.irTelaPesquisaRelatorioVenda()}">
+                </rich:menuItem>
+                <rich:menuItem id="idMenuItemPesquisarFornecedorProduto"
+                			   submitMode="ajax" 
+                			   value="Produto por Fornecedor"
+                               action="#{manterEntradaProdutoVisao.irTelaPesquisarEntrada()}">
+                </rich:menuItem>
+            </rich:dropDownMenu>
+            
+            <rich:dropDownMenu>
+             <f:facet name="label"> 
+                    <h:panelGroup>
+                        <h:outputText value="Venda"/>
+                    </h:panelGroup>
+                </f:facet>
+            	<rich:menuItem id="idMenuItemVenda"
+                			   submitMode="ajax" 
+                			   value="Registrar Venda"
+                               action="#{manterVendaVisao.irTelaRegistrarVenda()}">
+                </rich:menuItem>
+                
+                <rich:menuItem id="idMenuItemPesquisarVenda"
+                			   submitMode="ajax" 
+                			   value="Pesquisar Venda"
+                               action="#{manterVendaVisao.irTelaPesquisarVenda()}">
+                </rich:menuItem>
+                
+            </rich:dropDownMenu>
+            
+            <rich:dropDownMenu>
+             <f:facet name="label"> 
+                    <h:panelGroup>
+                        <h:outputText value="Entrada de Produtos" rendered="#{usuarioSessao.instance.usuario.status ne 'V'}"/>
+                    </h:panelGroup>
+                </f:facet>
+            	<rich:menuItem id="idMenuItemEntrada"
+                			   submitMode="ajax" 
+                			   value="Entrada de Produtos"
+                               action="#{manterEntradaProdutoVisao.irTelaPesquisarEntradaProduto()}">
+                </rich:menuItem>
+            </rich:dropDownMenu>           
+            
+           <rich:spacer width="600" />
+                 
+            <a4j:commandButton action="#{autenticarVisao.sair}"
+						value="#{msgs['label.sair']}"
+						title="#{msgs['MSG_H010']}"
+						image="/common/images/exit.png" 
+						style="font-family:verdana; size: 30; font-weight:bold;"
+						immediate="true" />
+						           
+        </rich:toolBar>
+</ui:composition>

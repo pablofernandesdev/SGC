@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j" contentType="text/html">
+  <head>
+		<title>SGC</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+		<meta http-equiv="Content-Language" content="pt-br" />
+		<meta http-equiv="Cache-Control" content="no-cache, no-store" />
+		<meta http-equiv="Pragma" content="no-cache, no-store" />
+		<meta http-equiv="expires" content="Mon, 06 Jan 1990 00:00:01 GMT" />
+		<meta name="robots" content="noindex,follow" />
+		
+		<a4j:outputPanel ajaxRendered="true">
+		
+			<a4j:loadStyle src="/common/css/estilos.css" media="all" />
+			<a4j:loadScript src="/common/js/jquery.maskedinput-1.2.2.js" />
+			<a4j:loadScript src="/common/js/geral.js" />
+		
+		</a4j:outputPanel>
+		
+		<ui:insert name="head" />
+  </head>
+		
+  <div align="left">
+	<div id="geral">
+
+		<div id="header" align="center">
+			<div style='position: relative; top: 0px; left: 0px;'>
+
+				<h:graphicImage url="/common/images/topofundo.jpg" width="100%"
+					height="130px" z-index="1" />
+
+			</div>
+
+			<div align="center"
+				style='position: absolute; top: 25px; left: 6px; right: 50px;'>
+				<h:graphicImage url="/common/images/sgcTexto.png" width="300px"
+					height="100px" align="middle" background-size="100%" />
+			</div>
+		</div>
+
+		<div id="conteudoImage">
+			<div id="conteudoFull">
+
+				<a4j:outputPanel id="idPainelMensagem" styleClass="column100Percent"
+					ajaxRendered="false">
+					<rich:panel id="painelMensagem"
+						rendered="#{facesContext.maximumSeverity != null}"
+						style="margin-top:10px !important; display:block">
+						<div style="border: 1px;">
+							<h:outputText
+								rendered="#{facesContext.maximumSeverity == 'ERROR 2'}">
+								<rich:messages layout="list" styleClass="msg-alerta">
+									<f:facet name="errorMarker">
+										<h:graphicImage url="/common/images/warning.png" />
+									</f:facet>
+								</rich:messages>
+							</h:outputText>
+
+							<h:outputText
+								rendered="#{facesContext.maximumSeverity == 'INFO 0'}">
+								<rich:messages layout="list" styleClass="msg-informacao">
+									<f:facet name="infoMarker">
+										<h:graphicImage url="/common/images/warning.png" />
+									</f:facet>
+								</rich:messages>
+							</h:outputText>
+
+							<h:outputText
+								rendered="#{facesContext.maximumSeverity == 'WARN 1'}">
+								<rich:messages layout="list" styleClass="msg-erro">
+									<f:facet name="warnMarker">
+										<h:graphicImage url="/common/images/warning.png" />
+									</f:facet>
+								</rich:messages>
+							</h:outputText>
+
+							<h:outputText
+								rendered="#{facesContext.maximumSeverity == 'FATAL 3'}">
+								<rich:messages layout="list" styleClass="msg-sucesso" />
+							</h:outputText>
+
+						</div>
+					</rich:panel>
+
+				</a4j:outputPanel>
+
+				<a4j:outputPanel id="facesErrors" styleClass="column100Percent"
+					ajaxRendered="true">
+					<h:form style="display:none" prependId="false">
+						<h:inputHidden id="maximumSeverity"
+							value="#{facesContext.maximumSeverity.ordinal}" />
+					</h:form>
+				</a4j:outputPanel>
+
+				<ui:insert name="body" />
+
+			</div>
+		</div>
+
+	</div>
+  </div>
+  
+  <div id="dialog"></div>
+  
+  <h:form id="idFormModalCarregando">
+	<rich:modalPanel id="ajaxStatusMP" minHeight="40" minWidth="120"
+		height="40" width="120" zindex="4000" resizeable="false"
+		moveable="false">
+		<div align="center" style="vertical-align: middle">
+			<a4j:status id="statusPopup"
+				onstart="Richfaces.showModalPanel('ajaxStatusMP')"
+				onstop="Richfaces.hideModalPanel('ajaxStatusMP')">
+				<f:facet name="start">
+					<h:panelGroup>
+						<img alt=""
+							src="#{request.contextPath}/common/images/carregando.png" />
+						<strong><h:outputText value="Carregando..." /></strong>
+					</h:panelGroup>
+				</f:facet>
+			</a4j:status>
+		</div>
+	</rich:modalPanel>
+  </h:form>
+  
+  <div id="footer" align="center">
+	<p>
+		<span> <h:outputText value="SGC - Sistema de Gestão Comercial" />
+			<br /> <h:outputText value="Todos os Direitos Reservados" />
+		</span>
+	</p>
+
+  </div>
+
+</html>

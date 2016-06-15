@@ -1,0 +1,28 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	template="/common/layout/template.xhtml">
+
+	<ui:define name="body">
+		<h:form id="idFormPrincipal">
+			<a4j:keepAlive beanName="manterUsuarioVisao" />
+			<ui:include src="/common/layout/menuPrincipal.xhtml" />
+
+			<div align="center"
+				style='position: relative; top: 140px; left: 0px;'>
+
+				<h:graphicImage url="/common/images/sgcTexto.png" width="300px"
+					height="100px" align="middle" background-size="100%" />
+			</div>
+
+			<rich:spacer height="300" />
+
+		</h:form>
+	</ui:define>
+</ui:composition>

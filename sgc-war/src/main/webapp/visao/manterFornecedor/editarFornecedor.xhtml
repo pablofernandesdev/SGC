@@ -1,0 +1,174 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+			    xmlns:ui="http://java.sun.com/jsf/facelets"
+			    xmlns:f="http://java.sun.com/jsf/core"
+			    xmlns:h="http://java.sun.com/jsf/html"
+			    xmlns:a4j="http://richfaces.org/a4j"
+			    xmlns:rich="http://richfaces.org/rich"
+			    xmlns:t="http://myfaces.apache.org/tomahawk"
+			    template="/common/layout/template.xhtml">
+
+	<ui:define name="body">
+		<a4j:form id="idFormEditarFornecedor">
+
+			<ui:include src="/common/layout/menuPrincipal.xhtml" />
+			<br />
+			<br />
+
+			<a4j:keepAlive beanName="manterFornecedorVisao" />
+
+			<rich:panel style="width:960px; margin:0 auto; min-height:40px;"
+				headerClass="outpanelHeader">
+				<f:facet name="header">
+					<rich:spacer height="4" />
+				</f:facet>
+				<h2 align="center">
+					<h:outputText value="#{msgs['label.fornecedor']}" 
+					style="font-family:verdana; font-weight:bold;"/>
+				</h2>
+			</rich:panel>
+			
+			<rich:panel id= "painelEditarFornecedor" header="#{msgs['label.editar.fornecedor']}"
+				style="width: 960px; margin:0 auto; min-height:500px">
+				
+				<font style="font-family:verdana; size: 30; font-weight:bold;">
+					
+					<h:outputText value="#{msgs['label.dados.empresa']} :" style="color:red;"/>
+
+					<br />
+					<br />
+
+					<h:outputText value="#{msgs['label.id']}" />
+					<h:inputText
+					value="#{manterFornecedorVisao.fornecedor.idFornecedor}"
+					disabled="true" />
+					<br />
+					<br />
+					
+					<h:outputText value="#{msgs['label.razaoSocial']} :" />
+						<rich:spacer width="15" />
+						<h:inputText
+						value="#{manterFornecedorVisao.fornecedor.razaoSocial}" />
+							
+						<br />
+						<br />
+										
+						<h:outputText value="#{msgs['label.nomeFantasia']} :" />
+						<rich:spacer width="15" />
+						<h:inputText
+							value="#{manterFornecedorVisao.fornecedor.nomeFantasia}" />
+							
+						<br />
+						<br />
+	
+						<h:outputText value="#{msgs['label.cnpj']} :"  />
+						<rich:spacer width="15" />
+						<h:inputText id="idCnpj" value="#{manterFornecedorVisao.fornecedor.cnpj}">
+							<rich:jQuery selector="#idCnpj" query="mask('99.999.999/9999-99')" timing="onload"/>
+					    </h:inputText>
+	
+						<br />
+						<br />
+						
+						<h:outputText value="#{msgs['label.contato']} :" style="color:red;"/>
+	
+						<br />
+						<br />
+						
+						<h:outputText value="#{msgs['label.email']} :" />
+						<rich:spacer width="15" />
+						<h:inputText value="#{manterFornecedorVisao.fornecedor.email}" />
+	
+						<br />
+						<br />
+						
+						<h:outputText value="#{msgs['label.telCel']} :" />
+						<rich:spacer width="15" />
+						<h:inputText id="idTelCel" value="#{manterFornecedorVisao.fornecedor.telCel}">
+							<rich:jQuery selector="#idTelCel" query="mask('(99) 9999-99999')" timing="onload"/>
+					    </h:inputText>
+	
+						<br />
+						<br />
+	
+						<h:outputText value="#{msgs['label.telFixo']} :" />
+						<rich:spacer width="15" />
+						<h:inputText id="idTelFixo" value="#{manterFornecedorVisao.fornecedor.telFixo}">
+							<rich:jQuery selector="#idTelFixo" query="mask('(99) 9999-99999')" timing="onload"/>
+					    </h:inputText>
+	
+						<br />
+						<br />
+						
+						<h:outputText value="#{msgs['label.endereco']} :" style="color:red;"/>
+	
+						<br />
+						<br />
+						
+						<h:outputText value="#{msgs['label.logradouro']} :" />
+						<rich:spacer width="15" />
+						<h:inputText value="#{manterFornecedorVisao.fornecedor.logradouro}" />
+	
+						<br />
+						<br />
+						
+						<h:outputText value="#{msgs['label.complemento']} :" />
+						<rich:spacer width="15" />
+						<h:inputText
+							value="#{manterFornecedorVisao.fornecedor.complemento}" />
+	
+						<br />
+						<br />
+	
+						<h:outputText value="#{msgs['label.bairro']} :" />
+						<rich:spacer width="15" />
+						<h:inputText value="#{manterFornecedorVisao.fornecedor.bairro}" />
+	
+						<br />
+						<br />
+	
+						<h:outputText value="#{msgs['label.cidade']} :" />
+						<rich:spacer width="15" />
+						<h:inputText value="#{manterFornecedorVisao.fornecedor.cidade}" />
+	
+						<br />
+						<br />
+	
+						<h:outputText value="#{msgs['label.uf']} :" />
+						<rich:spacer width="15" />
+						<h:selectOneMenu id="selectOneMenu"
+							value="#{manterFornecedorVisao.fornecedor.uf}">
+							<f:selectItem itemValue="" itemLabel="selecione" />
+							<t:selectItems value="#{manterFornecedorVisao.estados}"
+								var="estado" itemLabel="#{estado.sigla}"
+								itemValue="#{estado.sigla}" />
+						</h:selectOneMenu>
+	
+						<br />
+						<br />
+						
+				  </font>
+				
+				<div align="center">
+				
+				<a4j:commandButton
+					action="#{manterFornecedorVisao.voltarPesquisaFornecedor()}"
+					style="font-family:verdana; font-weight:bold;"
+					value="#{msgs['label.voltar']}" />
+					
+					<rich:spacer width="15" />
+
+				<a4j:commandButton
+					action="#{manterFornecedorVisao.updateFornecedor()}"
+					style="font-family:verdana; font-weight:bold;"
+					value="#{msgs['label.atualizar']}" />
+					
+				</div>
+			</rich:panel>
+			<br />
+			<br />
+		</a4j:form>
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,224 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+			    xmlns:ui="http://java.sun.com/jsf/facelets"
+			    xmlns:f="http://java.sun.com/jsf/core"
+			    xmlns:h="http://java.sun.com/jsf/html"
+			    xmlns:a4j="http://richfaces.org/a4j"
+			    xmlns:rich="http://richfaces.org/rich"
+			    xmlns:t="http://myfaces.apache.org/tomahawk"
+			    template="/common/layout/template.xhtml">
+
+	<ui:define name="body">
+		<a4j:form id="idFormPesquisarUsuario">
+
+			<ui:include src="/common/layout/menuPrincipal.xhtml" />
+			<br />
+			<br />
+
+			<a4j:keepAlive beanName="manterUsuarioVisao" />
+
+			<rich:panel style="width:1100px; margin:0 auto; min-height:40px;"
+				headerClass="outpanelHeader">
+				<f:facet name="header">
+					<rich:spacer height="4" />
+				</f:facet>
+				<h2 align="center">
+					<h:outputText value="#{msgs['label.usuario']}" />
+				</h2>
+			</rich:panel>
+			
+			<rich:panel id="painelPesquisarUsuario"
+				header="#{msgs['label.pesquisar.usuario']}"
+				style="width: 1100px; margin:0 auto; height:500px">
+
+				<h:outputText value="#{msgs['label.nome']} :" 
+				style="font-family:verdana; size: 30; font-weight:bold;"/>
+					<rich:spacer width="15" />
+				<h:inputText value="#{manterUsuarioVisao.usuario.nome}" />
+				
+					<rich:spacer width="15" />
+					
+				<h:outputText value="#{msgs['label.nome.usuario']} :" 
+				style="font-family:verdana; size: 30; font-weight:bold;"/>
+					<rich:spacer width="15" />
+				<h:inputText value="#{manterUsuarioVisao.usuario.usuario}" />
+				
+					<rich:spacer width="15" />
+
+				<a4j:commandButton action="#{manterUsuarioVisao.pesquisarUsuario}"
+						style="font-family:verdana; size: 30; font-weight:bold;"
+						value="#{msgs['label.pesquisar']}"
+						image="/common/images/search.png" 
+							title="#{msgs['label.pesquisar']}" reRender="idDataTableResultado, idPainelMensagem" />
+
+				<br />
+				<br />
+
+				<rich:dataTable id="idDataTableResultado"
+					value="#{manterUsuarioVisao.listaUsuarios}" var="usuario" rows="10"
+					width="100%">
+
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.id']}" 
+							style="font-family:verdana; size: 30; font-weight:bold;"/>
+						</f:facet>
+						<h:outputText value="#{usuario.idUsuario}" />
+					</rich:column>
+					
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.nome']}" 
+							style="font-family:verdana; size: 30; font-weight:bold;"/>
+						</f:facet>
+						<h:outputText value="#{usuario.nome}" />
+					</rich:column>
+
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.cpf']}" 
+							style="font-family:verdana; size: 30; font-weight:bold;"/>
+						</f:facet>
+						<h:outputText value="#{usuario.cpfComMascara}" />
+					</rich:column>
+					
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.data.nascimento']}" 
+							style="font-family:verdana; size: 30; font-weight:bold;"/>
+						</f:facet>
+						<h:outputText value="#{usuario.nascimento}" />
+					</rich:column>
+					
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.email']}" 
+							style="font-family:verdana; size: 30; font-weight:bold;"/>
+						</f:facet>
+						<h:outputText value="#{usuario.email}" />
+					</rich:column>
+					
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.telCel']}" 
+							style="font-family:verdana; size: 30; font-weight:bold;"/>
+						</f:facet>
+						<h:outputText value="#{usuario.telCelComMascara}" />
+					</rich:column>
+					
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.telFixo']}" 
+							style="font-family:verdana; size: 30; font-weight:bold;"/>
+						</f:facet>
+						<h:outputText value="#{usuario.telFixoComMascara}" />
+					</rich:column>
+					
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.cidade']}" 
+							style="font-family:verdana; size: 30; font-weight:bold;"/>
+						</f:facet>
+						<h:outputText value="#{usuario.cidade}" />
+					</rich:column>
+					
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.bairro']}" 
+							style="font-family:verdana; size: 30; font-weight:bold;"/>
+						</f:facet>
+						<h:outputText value="#{usuario.bairro}" />
+					</rich:column>
+					
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.logradouro']}" 
+							style="font-family:verdana; size: 30; font-weight:bold;"/>
+						</f:facet>
+						<h:outputText value="#{usuario.logradouro}" />
+					</rich:column>
+					
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.uf']}" 
+							style="font-family:verdana; size: 30; font-weight:bold;"/>
+						</f:facet>
+						<h:outputText value="#{usuario.uf}" />
+					</rich:column>
+					
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.nome.usuario']}" 
+							style="font-family:verdana; size: 30; font-weight:bold;"/>
+						</f:facet>
+						<h:outputText value="#{usuario.usuario}" />
+					</rich:column>
+					
+					<rich:column style="text-align:left;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.status']}" 
+							style="font-family:verdana; size: 30; font-weight:bold;"/>
+						</f:facet>
+						<h:outputText value="#{usuario.statusComMascara}" />
+					</rich:column>
+
+					<rich:column style="text-align:center;">
+						<f:facet name="header">
+							<h:outputText value="#{msgs['label.acao']}" 
+							style="font-family:verdana; size: 30; font-weight:bold;"/>
+						</f:facet>
+						
+						<h:commandButton
+							action="#{manterUsuarioVisao.irTelaEditarUsuario(usuario)}"
+							style="font-family:verdana; size: 30; font-weight:bold;"
+							image="/common/images/editar.png" 
+							title="#{msgs['label.editar']}"
+							value="#{msgs['label.editar']}" immediate="true" 
+							rendered="#{usuarioSessao.instance.usuario.status ne 'V'}"/>
+							
+						<rich:spacer width="10" />
+						
+						<a4j:commandButton
+							action="#{manterUsuarioVisao.deleteUsuario(usuario.idUsuario)}"
+							style="font-family:verdana; size: 30; font-weight:bold;"
+							image="/common/images/excluir.png" 
+							title="#{msgs['label.excluir']}"
+							value="#{msgs['label.excluir']}" immediate="true" reRender="idDataTableResultado, 
+								idPainelMensagem, idFormPesquisarUsuario" 
+							rendered="#{usuarioSessao.instance.usuario.status ne 'V'}"/>
+					</rich:column>
+
+					<f:facet name="footer">
+						<rich:datascroller id="scrollTable" for="idDataTableResultado"
+							maxPages="10" />
+					</f:facet>
+
+				</rich:dataTable>
+
+				<br />
+				<br />
+
+				<div align="center">
+
+					<a4j:commandButton
+						action="#{manterUsuarioVisao.irTelaCadastrarUsuario}"
+						style="font-family:verdana; size: 30; font-weight:bold;"
+						title="#{msgs['MSG_H006']}"
+						value="#{msgs['label.cadastrar.usuario']}" immediate="true" />
+
+					<rich:spacer width="15" />
+
+					<a4j:commandButton action="#{manterUsuarioVisao.voltarTelaInicial}"
+						value="#{msgs['label.home']}" title="#{msgs['MSG_H001']}"
+						style="font-family:verdana; size: 30; font-weight:bold;"
+						immediate="true" />
+
+				</div>
+			</rich:panel>
+			<br />
+			<br />
+		</a4j:form>
+	</ui:define>
+
+</ui:composition>

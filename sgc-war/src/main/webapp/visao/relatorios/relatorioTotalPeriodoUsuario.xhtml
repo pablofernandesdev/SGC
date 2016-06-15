@@ -1,0 +1,125 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	template="/common/layout/template.xhtml">
+
+	<ui:define name="body">
+		<a4j:form id="idFormPesquisarRelatorio">
+			<ui:include src="/common/layout/menuPrincipal.xhtml" />
+			
+			<br />
+			<br />
+			
+			<a4j:keepAlive beanName="relatorioVendaVisao" />
+
+			<rich:panel style="width:1100px; margin:0 auto; min-height:40px"
+				header="t">
+				<f:facet name="header">
+					<rich:spacer height="4" />
+				</f:facet>
+				<h2 align="center" style="font-family: verdana; font-weight: bold;">
+					<h:outputText value="#{msgs['label.RELATORIO']}" />
+				</h2>
+			</rich:panel>
+
+			<rich:panel id="painelPesquisarRelatorio"
+				header="#{msgs['label.relatorio.vendas.usuario']}"
+				style="width:1100px; margin:0 auto; min-height:500px">
+
+				<h:outputText value="#{msgs['label.usu']} :"
+					style="font-family:verdana; size: 30; font-weight:bold;" />
+				<rich:spacer width="15" />
+				<h:selectOneMenu id="idComboCat"
+					value="#{relatorioVendaVisao.codUsuario}">
+					<f:selectItem itemValue=" " itemLabel="Todos" />
+
+					<t:selectItems value="#{relatorioVendaVisao.listaUsuarios}"
+						var="usu" itemLabel="#{usu.nome}" itemValue="#{usu.idUsuario}" />
+
+				</h:selectOneMenu>
+
+				<rich:spacer width="15" />
+
+				<h:outputText value="#{msgs['label.data.inicial']} :"
+					style="font-family:verdana; font-weight:bold;" />
+				<rich:spacer width="15" />
+				
+				<rich:calendar value="#{relatorioVendaVisao.dataInicio}"
+					id="idDataInicial" dataPattern="dd/MM/yyyy"
+					label="#{msgs['label.data.inicial']}" enableManualInput="false" />
+				<rich:spacer width="15" />
+
+				<h:outputText value="#{msgs['label.data.final']} :"
+					style="font-family:verdana; font-weight:bold;" />
+				<rich:spacer width="15" />
+				
+				<rich:calendar value="#{relatorioVendaVisao.dataFim}"
+					id="idDataFinal" dataPattern="dd/MM/yyyy"
+					label="#{msgs['label.data.final']}" enableManualInput="false" />
+				<rich:spacer width="15" />
+
+				<a4j:commandButton action="#{relatorioVendaVisao.pesquisar}"
+					style="font-family:verdana; size: 30; font-weight:bold;"
+					value="#{msgs['label.pesquisar']}"
+					image="/common/images/search.png"
+					title="#{msgs['label.pesquisar']}"
+					reRender="idFormPesquisarRelatorio, idRichPanelResultado, idPainelMensagem, painelPesquisarRelatorio" />
+
+				<br />
+				<br />
+
+				<rich:panel id="idRichPanelResultado"
+					rendered="#{relatorioVendaVisao.listaVendas ne null and relatorioVendaVisao.listaVendas.size() > 0}">
+
+					<h:outputText value="#{msgs['label.usu']} :"
+						style="font-family:verdana; font-weight:bold;"
+						rendered="#{relatorioVendaVisao.codUsuario ne null}" />
+						
+					<h:outputText value="#{relatorioVendaVisao.nomeUsuario}"
+						rendered="#{relatorioVendaVisao.codUsuario ne null}" />
+					<rich:spacer width="15"
+						rendered="#{relatorioVendaVisao.codUsuario ne null}" />
+						
+					<br />
+					<br />
+
+					<h:outputText value="#{msgs['label.quantidade.vendas']} :"
+						style="font-family:verdana; font-weight:bold;" />
+						
+					<h:outputText value="#{relatorioVendaVisao.qtdVenda}" />
+					<rich:spacer width="15" />
+
+					<br />
+					<br />
+
+					<h:outputText value="#{msgs['label.valor.total.periodo']} :"
+						style="font-family:verdana; font-weight:bold;" />
+						
+					<h:outputText value="#{relatorioVendaVisao.valorTotalVenda}" />
+
+				</rich:panel>
+
+				<br />
+				<br />
+
+				<div align="center">
+
+					<a4j:commandButton
+						action="#{manterCategoriaVisao.voltarTelaInicial}"
+						value="#{msgs['label.home']}" title="#{msgs['MSG_H001']}"
+						style="font-family:verdana; font-weight:bold;" immediate="true" />
+
+				</div>
+			</rich:panel>
+			<br />
+			<br />
+		</a4j:form>
+	</ui:define>
+
+</ui:composition>
