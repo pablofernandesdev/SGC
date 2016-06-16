@@ -10,5 +10,5 @@ Tudo o que você precisa é o Java 6.0 (Java SDK 1.6) ou superior, Maven 2.0.11 
 
 Configurar o Maven
 ---------------
-Se você ainda não o fez, você precisa Configurar o Maven antes de continuar. Importante ressaltar que você precisa configurar o proxy, profiles e repositórios no seu .m2/settings.xml para que tudo funcione conforme o esperado.
+Se você ainda não o fez, você precisa Configurar o Maven antes de continuar. 
 
