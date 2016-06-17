@@ -1,5 +1,8 @@
 SGC
 ========================
+
+O SGC é um sistema de controle de estoque e vendas.
+
 Arquitetura
 -----------
 O projeto foi desenvolvido utilizando o Spring 3.0.6, hibernate 3.3.0 e Richface 3.3.3.
